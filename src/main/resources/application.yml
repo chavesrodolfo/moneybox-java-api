@@ -1,0 +1,46 @@
+server:
+    port: 8081
+
+spring:
+    application:
+        name: moneybox-app
+    datasource:
+        url: jdbc:mysql://localhost:3306/moneybox?createDatabaseIfNotExist=true
+        username: root
+        password: root
+        initialization-mode: always
+    banner:
+        location: classpath:/banner-development.txt 
+    jpa:
+        hibernate:
+            ddl-auto: create-drop
+            naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+        properties:
+            hibernate:
+                dialect: org.hibernate.dialect.MySQL5Dialect
+                #format_sql: true
+        show-sql: true
+
+logging:
+    level:
+        io.github.chavesrodolfo: DEBUG
+        org.hibernate.SQL: DEBUG
+
+jwt:
+    secretkey: your_strong_secret_key
+
+info:
+    app: Money Box API
+    github: https://github.com/chavesrodolfo/spring-boot-api
+    description: API for MoneyBox App
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: info, health, metrics, loggers, env, caches, prometheus
+    endpoint:
+        health:
+            show-details: WHEN_AUTHORIZED
+
+    
