@@ -1,0 +1,22 @@
+package io.github.chavesrodolfo.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import io.github.chavesrodolfo.model.Target;
+import io.github.chavesrodolfo.model.User;
+
+@Repository
+public interface TargetRepository extends JpaRepository<Target, Long> {
+    
+    @Query("SELECT t FROM Target t where t.user = :user") 
+    Page<Target> findTargetsByUser(Pageable pageable, User user);
+
+	Optional<Target> findByUuid(String uuid);
+    
+}
