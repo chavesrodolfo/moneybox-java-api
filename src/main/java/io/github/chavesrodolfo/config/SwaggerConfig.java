@@ -29,7 +29,7 @@ public class SwaggerConfig {
 	public Docket apiVersionDoc() {
 		return new Docket(DocumentationType.SWAGGER_2).groupName("api/v1").select().apis(RequestHandlerSelectors.any())
 				.paths(PathSelectors.ant("/api/v1/**")).build().apiInfo(apiInfo())
-			//	.securityContexts(Arrays.asList(actuatorSecurityContext(), apiSecurityContext()))
+				.securityContexts(Arrays.asList(actuatorSecurityContext(), apiSecurityContext()))
 				.securitySchemes(Arrays.asList(apiKey()));
 	}
 
