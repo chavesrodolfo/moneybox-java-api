@@ -1,13 +1,14 @@
 package io.github.chavesrodolfo.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Getter;
@@ -19,9 +20,11 @@ import lombok.Setter;
 public class User extends Auditable<String>{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    private String uuid;
+    @GeneratedValue(generator = "uuid")
+    @GenericGenerator(name = "uuid", strategy = "uuid")
+    @Column(columnDefinition = "CHAR(32)")
+	private String uuid;
+    
     private String username;
     @JsonIgnore
     private String password;

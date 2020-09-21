@@ -14,13 +14,20 @@ public class ExceptionAdvice {
     @ExceptionHandler(InvalidPasswordPatternException.class)
     @ResponseStatus(HttpStatus.PRECONDITION_REQUIRED)
     MessageResponse invalidPasswordPatternHandler(InvalidPasswordPatternException e) {
-        return new MessageResponse(InvalidPasswordPatternException.class.getSimpleName(), e.getMessage());
+        return new MessageResponse(HttpStatus.PRECONDITION_REQUIRED.toString(), e.getMessage());
     }
 
     @ResponseBody
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     MessageResponse userNotFoundHandler(UserNotFoundException e) {
-        return new MessageResponse(UserNotFoundException.class.getSimpleName(), e.getMessage());
+        return new MessageResponse(HttpStatus.NOT_FOUND.toString(), e.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(TargetNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    MessageResponse targetNotFoundHandler(TargetNotFoundException e) {
+        return new MessageResponse(HttpStatus.NOT_FOUND.toString(), e.getMessage());
     }
 }
