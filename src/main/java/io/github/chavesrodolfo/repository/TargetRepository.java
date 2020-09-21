@@ -17,6 +17,7 @@ public interface TargetRepository extends JpaRepository<Target, Long> {
     @Query("SELECT t FROM Target t where t.user = :user") 
     Page<Target> findTargetsByUser(Pageable pageable, User user);
 
-	Optional<Target> findByUuid(String uuid);
+    @Query("SELECT t FROM Target t where t.uuid = :uuid and t.user = :user") 
+	Optional<Target> findTargetByUuidAndUser(String uuid, User user);
     
 }
