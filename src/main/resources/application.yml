@@ -20,12 +20,11 @@ spring:
             hibernate:
                 dialect: org.hibernate.dialect.MySQL5Dialect
                 #format_sql: true
-        show-sql: true
+        #show-sql: true
 
 logging:
     level:
         io.github.chavesrodolfo: DEBUG
-        org.hibernate.SQL: DEBUG
 
 jwt:
     secretkey: your_strong_secret_key
