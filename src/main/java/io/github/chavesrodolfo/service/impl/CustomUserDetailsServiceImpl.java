@@ -26,15 +26,15 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUsername(username);
-        user.orElseThrow(() -> new UsernameNotFoundException(String.format("Username not found. [%s]", username)));
-        log.debug(String.format("Username located. [%s]", username));
+        user.orElseThrow(() -> new UsernameNotFoundException(String.format("Username %s not found", username)));
+        log.debug("Username {} located", username);
         return user.map(CustomUserDetails::new).get();
     }
 
 	public void changePassword(String username, String oldPassword, String newPassword) throws UsernameNotFoundException, BadCredentialsException {
         Optional<User> user = userRepository.findByUsername(username);
-        user.orElseThrow(() -> new UsernameNotFoundException(String.format("Username not found. [%s]", username)));
-        log.debug(String.format("Username located. [%s]", username));
+        user.orElseThrow(() -> new UsernameNotFoundException(String.format("Username %s not found", username)));
+        log.debug("Username {} located", username);
 
         verifyPasswordMatches(oldPassword, user);
 
@@ -42,7 +42,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
 
         user.get().setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt(4)));
         userRepository.save(user.get());
-        log.info(String.format("Password updated. [%s]", username));
+        log.info("Password updated for username {}", username);
 	}
 
     /**
@@ -53,10 +53,10 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
      */
     private void verifyPasswordMatches(String oldPassword, Optional<User> user) {
         if (BCrypt.checkpw(oldPassword, user.get().getPassword())) {
-            log.debug(String.format("Password match. [%s]", user.get().getUsername()));
+            log.debug("Password match for username {}", user.get().getUsername());
         }
         else {
-            String errorMessage = String.format("Password does not match. [%s]", user.get().getUsername());
+            String errorMessage = String.format("Password does not match for username %s", user.get().getUsername());
             log.debug(errorMessage);
             throw new BadCredentialsException(errorMessage);
         }
