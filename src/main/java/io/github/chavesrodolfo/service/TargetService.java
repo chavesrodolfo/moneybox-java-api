@@ -6,7 +6,7 @@ import io.github.chavesrodolfo.model.representations.TargetVO;
 
 public interface TargetService {
 
-	Page<TargetVO> listTargets(Integer page, Integer size, String username);
+	Page<TargetVO> listTargets(String username, Integer page, Integer size, boolean activeOnly);
 
 	TargetVO createTarget(String username, TargetVO targetVO);
 

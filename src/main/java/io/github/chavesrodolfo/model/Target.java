@@ -1,5 +1,7 @@
 package io.github.chavesrodolfo.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -28,7 +30,11 @@ public class Target extends Auditable<String>{
 
     private String title;
     private String description;
-    private Double value;
+    private Double finalValue;
+    private Double initialValue;
+    private Double monthlyValue;
+    private Date eventDate;
+    private String status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_uuid")

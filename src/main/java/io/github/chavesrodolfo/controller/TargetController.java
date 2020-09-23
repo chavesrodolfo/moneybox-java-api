@@ -31,12 +31,14 @@ public class TargetController {
 
     @GetMapping("/targets")
     @PreAuthorize("hasRole('USER')")
-    public Page<TargetVO> listTargets(final Principal principal, @RequestParam(value = "page", required = false, defaultValue = "0") final Integer page,
-            @RequestParam(value = "size", required = false, defaultValue = "10") final Integer size) {
+    public Page<TargetVO> listTargets(final Principal principal, 
+            @RequestParam(value = "page", required = false, defaultValue = "0") final Integer page,
+            @RequestParam(value = "size", required = false, defaultValue = "10") final Integer size, 
+            @RequestParam(value = "activeOnly", required = false, defaultValue = "false") final boolean activeOnly) {
 
         log.info("Username {} is fetching targets", principal.getName());
 
-        return targetService.listTargets(page, size, principal.getName());
+        return targetService.listTargets(principal.getName(), page, size, activeOnly);
     }
 
     @PostMapping("/targets")
