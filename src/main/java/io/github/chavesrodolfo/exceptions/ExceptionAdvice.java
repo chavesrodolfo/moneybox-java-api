@@ -30,4 +30,18 @@ public class ExceptionAdvice {
     MessageResponse targetNotFoundHandler(TargetNotFoundException e) {
         return new MessageResponse(HttpStatus.NOT_FOUND.toString(), e.getMessage());
     }
+
+    @ResponseBody
+    @ExceptionHandler(StatementNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    MessageResponse statementNotFoundHandler(StatementNotFoundException e) {
+        return new MessageResponse(HttpStatus.NOT_FOUND.toString(), e.getMessage());
+    }
+
+    @ResponseBody
+    @ExceptionHandler(InvalidDataException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    MessageResponse invalidArgumentsHandler(InvalidDataException e) {
+        return new MessageResponse(HttpStatus.BAD_REQUEST.toString(), e.getMessage());
+    }
 }
